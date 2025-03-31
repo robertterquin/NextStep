@@ -2,6 +2,7 @@ package com.example.nextstep;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -25,7 +26,7 @@ public class quiz extends AppCompatActivity {
     private ProgressBar progressBar;
     private View questionCard;
     private GestureDetector gestureDetector;
-
+    private UserResponses userResponses;
     private float dX = 0f;
     private static final int SWIPE_THRESHOLD = 300;
 
@@ -44,7 +45,10 @@ public class quiz extends AppCompatActivity {
         tvQuestion = findViewById(R.id.tvQuestion);
         tvQuestionNumber = findViewById(R.id.tvQuestionNumber);
         progressBar = findViewById(R.id.progressBar);
-        questionCard = findViewById(R.id.questionCard); // Ensure this ID is set in XML
+        questionCard = findViewById(R.id.questionCard);
+
+        userResponses = new UserResponses(this);
+        userResponses.resetResponses();
 
         gestureDetector = new GestureDetector(this, new GestureListener());
 
@@ -100,9 +104,7 @@ public class quiz extends AppCompatActivity {
             questionCard.setTranslationX(0);
             questionCard.setAlpha(1f);
         } else {
-            tvQuestion.setText("No more questions!");
-            tvQuestionNumber.setText("");
-            progressBar.setProgress(100);
+            goToResultsPage();
         }
     }
 
@@ -119,18 +121,21 @@ public class quiz extends AppCompatActivity {
     }
 
     private void animateCardSwipe(boolean isLike) {
-        float endX = isLike ? 1000f : -1000f; // Move right if liked, left if disliked
+        float endX = isLike ? 1000f : -1000f; 
+        Questions currentQuestion = questionList.get(currentQuestionIndex);
+        userResponses.saveResponse(currentQuestion.getQuestionNumber(), isLike);
+        
         ObjectAnimator animator = ObjectAnimator.ofFloat(questionCard, "translationX", endX);
-        animator.setDuration(300); // Animation duration
+        animator.setDuration(300); 
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                questionCard.setTranslationX(0); // Reset position
-                questionCard.setAlpha(0f); // Fade out
+                questionCard.setTranslationX(0); 
+                questionCard.setAlpha(0f); 
                 nextQuestion();
-                questionCard.animate().alpha(1f).setDuration(300); // Fade in new question
+                questionCard.animate().alpha(1f).setDuration(300); 
             }
-
+    
             @Override public void onAnimationStart(Animator animation) {}
             @Override public void onAnimationCancel(Animator animation) {}
             @Override public void onAnimationRepeat(Animator animation) {}
@@ -142,7 +147,15 @@ public class quiz extends AppCompatActivity {
         if (currentQuestionIndex < questionList.size() - 1) {
             currentQuestionIndex++;
             displayQuestion();
+        } else {
+            goToResultsPage();
         }
+    }
+
+    private void goToResultsPage() {
+        Intent intent = new Intent(quiz.this, result_page.class);
+        startActivity(intent);
+        finish();
     }
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
