@@ -1,0 +1,120 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@drawable/questions_bg">
+
+    <!-- RESULT TEXT -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESULT"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- LARGER GRID LAYOUT FOR CATEGORIES -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:background="@drawable/questions_cardbg"
+        android:alignmentMode="alignMargins"
+        android:rowOrderPreserved="true"
+        android:columnOrderPreserved="true"
+        android:padding="12dp">
+
+        <!-- Developer -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:text="Developer\n10%"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_margin="12dp"/>
+
+        <!-- Network Specialist -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:text="Network\nSpecialist - 20%"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_margin="12dp"/>
+
+        <!-- IT Support -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:text="IT Support &amp;\nAdministration\n5%"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_margin="12dp"/>
+
+        <!-- Data & Analytics -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:text="Data &amp;\nAnalytics\n45%"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_margin="12dp"/>
+
+        <!-- UI Designer -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:text="UI Designer\n14%"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_margin="12dp"/>
+
+        <!-- Project Manager -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:text="Project Manager\n6%"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_margin="12dp"/>
+
+    </GridLayout>
+
+    <!-- FINAL RESULT TEXT -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Based on your results, you have strong potential for a career in"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data and Analytics."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+</LinearLayout>

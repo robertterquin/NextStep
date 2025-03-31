@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NextStep</string>
+    <string name="heading1">Discover Your IT Path</string>
+    <string name="heading2">Learn the Essential Skills</string>
+    <string name="heading3">Take the Next Step</string>
+    <string name="description1">Explore different IT career options and find the path that suits you best.</string>
+    <string name="description2">Get insights into in-demand skills and certifications to boost your career.</string>
+    <string name="description3">Set your goals, track progress, and move forward in your IT journey.</string>
+
+</resources>

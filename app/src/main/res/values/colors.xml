@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_blue">#ADD8E6</color>
+    <color name="button_default">#B0E0E6</color> <!-- Match background -->
+    <color name="button_pressed">#A0D0D6</color> <!-- Slightly darker on press -->
+    <color name="button_border">#5A9EC9</color> <!-- Darker blue border -->
+    <color name="button_text">#000000</color> <!-- Black text for contrast -->
+
+
+</resources>

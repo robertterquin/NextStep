@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Shadow Effect -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp"/>
+            <solid android:color="#D3D3D3"/>  <!-- Light Gray Shadow -->
+        </shape>
+    </item>
+
+    <!-- Main Card Background -->
+    <item android:top="6dp" android:left="6dp">  <!-- Offset to create shadow effect -->
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp"/>
+            <gradient
+                android:angle="270"
+                android:startColor="#FFFFFF"
+                android:endColor="#F8F8FF"/> <!-- Light Gradient Effect -->
+        </shape>
+    </item>
+
+</layer-list>
