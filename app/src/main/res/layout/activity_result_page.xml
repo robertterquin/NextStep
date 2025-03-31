@@ -28,7 +28,6 @@
         android:columnOrderPreserved="true"
         android:padding="12dp">
 
-        <!-- Developer -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="120dp"
