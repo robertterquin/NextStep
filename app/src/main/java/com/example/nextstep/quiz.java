@@ -2,6 +2,7 @@ package com.example.nextstep;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -29,6 +30,7 @@ public class quiz extends AppCompatActivity {
     private float dX = 0f;
     private static final int SWIPE_THRESHOLD = 300;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
