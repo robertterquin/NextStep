@@ -11,28 +11,16 @@
     tools:context=".result_page"
     android:background="@drawable/questions_bg">
 
-    <!-- RESULT TEXT -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sfpro_bold"
-        android:textColor="@color/white"
-        android:text="RESULT"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
-
-    <!-- LARGER GRID LAYOUT FOR CATEGORIES -->
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="4"
-        android:background="@drawable/questions_cardbg"
+        android:layout_height="661dp"
         android:alignmentMode="alignMargins"
-        android:rowOrderPreserved="true"
+        android:background="@drawable/questions_cardbg"
+        android:columnCount="2"
         android:columnOrderPreserved="true"
-        android:padding="12dp">
+        android:padding="10dp"
+        android:rowCount="4"
+        android:rowOrderPreserved="true">
 
         <!-- Developer Card -->
         <androidx.cardview.widget.CardView
@@ -43,17 +31,18 @@
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/tvDeveloper"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:text="Developer\n0%"
                 android:fontFamily="@font/sfpro_bold"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Developer\n0%"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:padding="16dp"/>
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         <!-- Network Specialist Card -->
@@ -65,17 +54,18 @@
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/tvNetworkSpecialist"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:text="Network\nSpecialist\n0%"
-                android:textSize="20sp"
                 android:fontFamily="@font/sfpro_bold"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:text="Network\nSpecialist\n0%"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         <!-- IT Support Card -->
@@ -87,16 +77,17 @@
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/tvITSupport"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:text="IT Support &amp;\nAdministration\n0%"
-                android:textSize="18sp"
                 android:fontFamily="@font/sfpro_bold"
-                android:textColor="@color/black"
                 android:gravity="center"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:text="IT Support &amp;\nAdministration\n0%"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
 
         <!-- Data & Analytics Card -->
@@ -108,17 +99,18 @@
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/tvDataAnalytics"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:text="Data &amp;\nAnalytics\n0%"
-                android:textSize="20sp"
                 android:fontFamily="@font/sfpro_bold"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:text="Data &amp;\nAnalytics\n0%"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         <!-- UI Designer Card -->
@@ -130,17 +122,18 @@
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/tvUIDesigner"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:text="UI Designer\n0%"
-                android:textSize="20sp"
                 android:fontFamily="@font/sfpro_bold"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:text="UI Designer\n0%"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         <!-- Project Manager Card -->
@@ -152,40 +145,42 @@
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/tvProjectManager"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:text="Project Manager\n0%"
-                android:textSize="20sp"
                 android:fontFamily="@font/sfpro_bold"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:text="Project Manager\n0%"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         <!-- Cyber Security Card (spanning two columns) -->
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
-            android:layout_columnSpan="2"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
+
             <TextView
                 android:id="@+id/tvCyberSecurity"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:text="Cyber Security\n0%"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
-                android:textColor="@color/black"
                 android:gravity="center"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:text="Cyber Security\n0%"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
