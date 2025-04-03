@@ -31,6 +31,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpro_bold"
             android:gravity="center"
             android:text="@string/heading2"
             android:textColor="@android:color/black"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="4dp"
+            android:fontFamily="@font/sfpro_reg"
             android:text="@string/description2"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
@@ -79,6 +81,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/sfpro_bold"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_background"
         android:paddingVertical="12dp"

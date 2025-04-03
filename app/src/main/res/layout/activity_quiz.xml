@@ -27,6 +27,7 @@
         <TextView
             android:id="@+id/tvInstruction"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/sfpro_reg"
             android:layout_height="wrap_content"
             android:text="Swipe right for Yes, left for No."
             android:textSize="14sp"
@@ -66,6 +67,7 @@
                 android:id="@+id/tvQuestionNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
+                android:fontFamily="@font/sfpro_reg"
                 android:layout_marginTop="0dp"
                 android:text="Question 1 of 10"
                 android:textColor="#8A2BE2"
@@ -78,6 +80,7 @@
                 android:gravity="center"
                 android:lineSpacingExtra="10dp"
                 android:padding="12dp"
+                android:fontFamily="@font/sfpro_bold"
                 android:text="Do you like writing code and creating apps or websites?"
                 android:textColor="#000000"
                 android:textSize="20sp"
