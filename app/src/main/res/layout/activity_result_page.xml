@@ -12,8 +12,8 @@
     android:background="@drawable/questions_bg">
 
     <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="661dp"
+        android:layout_width="351dp"
+        android:layout_height="656dp"
         android:alignmentMode="alignMargins"
         android:background="@drawable/questions_cardbg"
         android:columnCount="2"
