@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:background="@android:color/transparent"
     android:id="@+id/main"
-    android:paddingBottom="20dp">
+    android:fitsSystemWindows="true">
 
     <ImageView
         android:id="@+id/imageView"
@@ -68,6 +68,7 @@
 
     <Button
         android:id="@+id/btn_confirm"
+        android:layout_marginBottom="30dp"
         android:layout_width="match_parent"
         android:fontFamily="@font/sfpro_bold"
         android:layout_height="50dp"

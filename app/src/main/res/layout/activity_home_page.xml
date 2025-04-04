@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".home_page"
-    android:background="@drawable/bghomepage">
+    android:background="@drawable/questions_bg">
 
-    <!-- Top Layout: Greeting Text & Notification Icon -->
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingTop="15dp">
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/greeting_text"
@@ -32,58 +30,121 @@
             android:id="@+id/notification_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/notification_bell"
+            android:layout_marginStart="8dp"
             android:contentDescription="Notification Icon"
-            android:layout_marginStart="8dp" />
+            android:src="@drawable/notification_bell" />
     </LinearLayout>
 
-    <!-- Spacer to push navigation to the bottom -->
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/menubar_bg"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:padding="10dp">
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
 
-        <ImageView
-            android:id="@+id/nav_home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/home_icon"
-            android:contentDescription="Home"
-            android:layout_weight="1"/>
+        <LinearLayout
+            android:id="@+id/nav_home_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-        <ImageView
-            android:id="@+id/nav_tasks"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/checked"
-            android:contentDescription="Tasks"
-            android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/nav_home"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Home"
+                android:src="@drawable/home_icon" />
 
-        <ImageView
-            android:id="@+id/nav_goals"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/target"
-            android:contentDescription="Goals"
-            android:layout_weight="1"/>
+            <View
+                android:id="@+id/strike_home"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/black"
+                android:visibility="gone" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/nav_profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/userrr"
-            android:contentDescription="Profile"
-            android:layout_weight="1"/>
+        <LinearLayout
+            android:id="@+id/nav_tasks_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/nav_tasks"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Tasks"
+                android:src="@drawable/checked" />
+
+            <View
+                android:id="@+id/strike_tasks"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/black"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_goals_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/nav_goals"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Goals"
+                android:src="@drawable/target" />
+
+            <View
+                android:id="@+id/strike_goals"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/black"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_profile_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/nav_profile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Profile"
+                android:src="@drawable/userrr" />
+
+            <View
+                android:id="@+id/strike_profile"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/black"
+                android:visibility="gone" />
+        </LinearLayout>
+
     </LinearLayout>
-
 </LinearLayout>

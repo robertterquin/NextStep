@@ -13,6 +13,9 @@
         android:theme="@style/Theme.NextStep"
         tools:targetApi="31">
         <activity
+            android:name=".home_page"
+            android:exported="false" />
+        <activity
             android:name=".task_page"
             android:exported="false" />
         <activity
@@ -20,9 +23,6 @@
             android:exported="false" />
         <activity
             android:name=".profile_page"
-            android:exported="false" />
-        <activity
-            android:name=".home_page"
             android:exported="false" />
         <activity
             android:name=".input_name"
