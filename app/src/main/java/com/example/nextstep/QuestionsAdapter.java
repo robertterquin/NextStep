@@ -17,7 +17,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     private List<Questions> questionList;
     private Context context;
 
-    // Constructor
+
     public QuestionsAdapter(Context context, List<Questions> questionList) {
         this.context = context;
         this.questionList = questionList;

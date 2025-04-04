@@ -25,32 +25,32 @@ public class task_page extends AppCompatActivity {
             return insets;
         });
 
-        // Navigation ImageViews
+
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navTasks = findViewById(R.id.nav_tasks);
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
-        // Strike-through Views
+
         View strikeHome = findViewById(R.id.strike_home);
         View strikeTasks = findViewById(R.id.strike_tasks);
         View strikeGoals = findViewById(R.id.strike_goals);
         View strikeProfile = findViewById(R.id.strike_profile);
 
-        // Set current page as active (Tasks)
+
         strikeHome.setVisibility(View.INVISIBLE);
         strikeTasks.setVisibility(View.VISIBLE);
         strikeGoals.setVisibility(View.INVISIBLE);
         strikeProfile.setVisibility(View.INVISIBLE);
 
-        // Navigation click listeners
+
         navHome.setOnClickListener(v -> {
             startActivity(new Intent(task_page.this, home_page.class));
             overridePendingTransition(0, 0);
         });
 
         navTasks.setOnClickListener(v -> {
-            // Already on task_page – no action needed
+
         });
 
         navGoals.setOnClickListener(v -> {

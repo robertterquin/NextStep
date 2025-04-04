@@ -115,7 +115,7 @@ public class quiz extends AppCompatActivity {
         } else if (translationX < -SWIPE_THRESHOLD) {
             animateCardSwipe(false); // Swipe left (Dislike)
         } else {
-            // Reset position if not far enough
+
             questionCard.animate().translationX(0).setDuration(200).start();
         }
     }

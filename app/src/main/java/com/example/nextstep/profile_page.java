@@ -25,25 +25,25 @@ public class profile_page extends AppCompatActivity {
             return insets;
         });
 
-        // Navigation ImageViews
+
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navTasks = findViewById(R.id.nav_tasks);
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
-        // Strike-through Views for active state indicator
+
         View strikeHome = findViewById(R.id.strike_home);
         View strikeTasks = findViewById(R.id.strike_tasks);
         View strikeGoals = findViewById(R.id.strike_goals);
         View strikeProfile = findViewById(R.id.strike_profile);
 
-        // Set initial state for Profile (active tab)
-        strikeHome.setVisibility(View.INVISIBLE);  // Home is inactive
-        strikeTasks.setVisibility(View.INVISIBLE); // Tasks is inactive
-        strikeGoals.setVisibility(View.INVISIBLE); // Goals is inactive
-        strikeProfile.setVisibility(View.VISIBLE); // Profile is active
 
-        // Navigation click listeners
+        strikeHome.setVisibility(View.INVISIBLE);
+        strikeTasks.setVisibility(View.INVISIBLE);
+        strikeGoals.setVisibility(View.INVISIBLE);
+        strikeProfile.setVisibility(View.VISIBLE);
+
+
         navHome.setOnClickListener(v -> {
             Intent homeIntent = new Intent(profile_page.this, home_page.class);
             startActivity(homeIntent);
@@ -63,7 +63,7 @@ public class profile_page extends AppCompatActivity {
         });
 
         navProfile.setOnClickListener(v -> {
-            // Already on profile_page – do nothing or reload if needed
+
         });
     }
 }

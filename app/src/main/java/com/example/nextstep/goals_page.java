@@ -25,19 +25,19 @@ public class goals_page extends AppCompatActivity {
             return insets;
         });
 
-        // Navigation ImageViews
+
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navTasks = findViewById(R.id.nav_tasks);
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
-        // Strike-through Views for active state indicator
+
         View strikeHome = findViewById(R.id.strike_home);
         View strikeTasks = findViewById(R.id.strike_tasks);
         View strikeGoals = findViewById(R.id.strike_goals);
         View strikeProfile = findViewById(R.id.strike_profile);
 
-        // Set initial state for Goals (active tab)
+
         strikeHome.setVisibility(View.INVISIBLE);
         strikeTasks.setVisibility(View.INVISIBLE);
         strikeGoals.setVisibility(View.VISIBLE);
@@ -57,7 +57,7 @@ public class goals_page extends AppCompatActivity {
         });
 
         navGoals.setOnClickListener(v -> {
-            // Already on goals_page – do nothing or reload if needed
+
         });
 
         navProfile.setOnClickListener(v -> {

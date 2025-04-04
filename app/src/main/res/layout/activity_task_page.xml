@@ -22,17 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/sfpro_bold"
-            android:text="Profile"
+            android:text="Progress"
             android:textColor="@android:color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/notification_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/user_profile" />
+
     </LinearLayout>
 
     <View
@@ -50,7 +45,7 @@
         android:orientation="horizontal"
         android:layout_margin="20dp">
 
-        <!-- Home -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -69,11 +64,11 @@
                 android:layout_width="40dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="4dp"
-                android:background="#000000"
+                android:background="#87CEFA"
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Tasks -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -92,11 +87,11 @@
                 android:layout_width="40dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="4dp"
-                android:background="#000000"
+                android:background="#87CEFA"
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Goals -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -115,11 +110,11 @@
                 android:layout_width="40dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="4dp"
-                android:background="#000000"
+                android:background="#87CEFA"
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Profile -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -138,7 +133,7 @@
                 android:layout_width="40dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="4dp"
-                android:background="#000000"
+                android:background="#87CEFA"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
