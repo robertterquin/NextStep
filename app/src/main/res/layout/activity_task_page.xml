@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="20dp"
-    tools:context=".task_page">
+    tools:context=".home_page">
 
+    <!-- Top Layout: Greeting Text & Notification Icon -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="15dp">
+        android:paddingTop="15dp">
 
         <TextView
             android:id="@+id/greeting_text"
@@ -23,16 +24,18 @@
             android:fontFamily="@font/sfpro_bold"
             android:text="Progress"
             android:textColor="@android:color/black"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
+    <!-- Spacer to push navigation to the bottom -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
