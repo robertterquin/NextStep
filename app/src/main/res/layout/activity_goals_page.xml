@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/questions_bg">
+    android:background="@drawable/bghome">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -26,7 +26,6 @@
             android:textColor="@android:color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <View
@@ -42,40 +41,102 @@
         android:background="@drawable/menubar_bg"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_margin="20dp"
-        >
+        android:layout_margin="20dp">
 
-        <ImageView
-            android:id="@+id/nav_home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <!-- Home -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Home"
-            android:src="@drawable/home_icon" />
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <ImageView
-            android:id="@+id/nav_tasks"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:contentDescription="Tasks"
-            android:src="@drawable/checked" />
+            <ImageView
+                android:id="@+id/nav_home"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Home"
+                android:src="@drawable/home_icon" />
 
-        <ImageView
-            android:id="@+id/nav_goals"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:contentDescription="Goals"
-            android:src="@drawable/target" />
+            <View
+                android:id="@+id/strike_home"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="#000000"
+                android:visibility="gone" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/nav_profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <!-- Tasks -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Profile"
-            android:src="@drawable/userrr" />
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/nav_tasks"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Tasks"
+                android:src="@drawable/checked" />
+
+            <View
+                android:id="@+id/strike_tasks"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="#000000"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Goals -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/nav_goals"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Goals"
+                android:src="@drawable/target" />
+
+            <View
+                android:id="@+id/strike_goals"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="#000000"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Profile -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/nav_profile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Profile"
+                android:src="@drawable/userrr" />
+
+            <View
+                android:id="@+id/strike_profile"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="#000000"
+                android:visibility="gone" />
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

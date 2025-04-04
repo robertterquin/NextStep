@@ -31,44 +31,39 @@ public class goals_page extends AppCompatActivity {
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
-        // Home Page Intent
-        navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent homeIntent = new Intent(goals_page.this, home_page.class);
-                startActivity(homeIntent);
-                finish(); // Close current activity
-            }
+        // Strike-through Views for active state indicator
+        View strikeHome = findViewById(R.id.strike_home);
+        View strikeTasks = findViewById(R.id.strike_tasks);
+        View strikeGoals = findViewById(R.id.strike_goals);
+        View strikeProfile = findViewById(R.id.strike_profile);
+
+        // Set initial state for Goals (active tab)
+        strikeHome.setVisibility(View.INVISIBLE);
+        strikeTasks.setVisibility(View.INVISIBLE);
+        strikeGoals.setVisibility(View.VISIBLE);
+        strikeProfile.setVisibility(View.INVISIBLE);
+
+        // Navigation click listeners
+        navHome.setOnClickListener(v -> {
+            Intent homeIntent = new Intent(goals_page.this, home_page.class);
+            startActivity(homeIntent);
+            overridePendingTransition(0, 0);
         });
 
-        // Tasks Page Intent
-        navTasks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent taskIntent = new Intent(goals_page.this, task_page.class);
-                startActivity(taskIntent);
-                finish();
-            }
+        navTasks.setOnClickListener(v -> {
+            Intent tasksIntent = new Intent(goals_page.this, task_page.class);
+            startActivity(tasksIntent);
+            overridePendingTransition(0, 0);
         });
 
-        // Goals Page Intent (Reloads the same page)
-        navGoals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goalsIntent = new Intent(goals_page.this, goals_page.class);
-                startActivity(goalsIntent);
-                finish();
-            }
+        navGoals.setOnClickListener(v -> {
+            // Already on goals_page – do nothing or reload if needed
         });
 
-        // Profile Page Intent
-        navProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profileIntent = new Intent(goals_page.this, profile_page.class);
-                startActivity(profileIntent);
-                finish();
-            }
+        navProfile.setOnClickListener(v -> {
+            Intent profileIntent = new Intent(goals_page.this, profile_page.class);
+            startActivity(profileIntent);
+            overridePendingTransition(0, 0);
         });
     }
 }

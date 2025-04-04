@@ -19,59 +19,51 @@ public class profile_page extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_page);
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-
+        // Navigation ImageViews
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navTasks = findViewById(R.id.nav_tasks);
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
-        navHome.setImageResource(R.drawable.home_icon);
-        navTasks.setImageResource(R.drawable.checked);
-        navGoals.setImageResource(R.drawable.target);
-        navProfile.setImageResource(R.drawable.user_active);
+        // Strike-through Views for active state indicator
+        View strikeHome = findViewById(R.id.strike_home);
+        View strikeTasks = findViewById(R.id.strike_tasks);
+        View strikeGoals = findViewById(R.id.strike_goals);
+        View strikeProfile = findViewById(R.id.strike_profile);
 
-        navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Set initial state for Profile (active tab)
+        strikeHome.setVisibility(View.INVISIBLE);  // Home is inactive
+        strikeTasks.setVisibility(View.INVISIBLE); // Tasks is inactive
+        strikeGoals.setVisibility(View.INVISIBLE); // Goals is inactive
+        strikeProfile.setVisibility(View.VISIBLE); // Profile is active
 
-                Intent homeIntent = new Intent(profile_page.this, home_page.class);
-                startActivity(homeIntent);
-                finish();
-            }
+        // Navigation click listeners
+        navHome.setOnClickListener(v -> {
+            Intent homeIntent = new Intent(profile_page.this, home_page.class);
+            startActivity(homeIntent);
+            overridePendingTransition(0, 0);
         });
 
-        navTasks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent taskIntent = new Intent(profile_page.this, task_page.class);
-                startActivity(taskIntent);
-                finish();
-            }
+        navTasks.setOnClickListener(v -> {
+            Intent taskIntent = new Intent(profile_page.this, task_page.class);
+            startActivity(taskIntent);
+            overridePendingTransition(0, 0);
         });
 
-        navGoals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to Goals page and set active state for Goals
-                Intent goalsIntent = new Intent(profile_page.this, goals_page.class);
-                startActivity(goalsIntent);
-                finish();
-            }
+        navGoals.setOnClickListener(v -> {
+            Intent goalsIntent = new Intent(profile_page.this, goals_page.class);
+            startActivity(goalsIntent);
+            overridePendingTransition(0, 0);
         });
 
-        navProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        navProfile.setOnClickListener(v -> {
+            // Already on profile_page – do nothing or reload if needed
         });
     }
 }

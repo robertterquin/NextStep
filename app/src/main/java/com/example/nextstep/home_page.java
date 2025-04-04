@@ -26,10 +26,9 @@ public class home_page extends AppCompatActivity {
             return insets;
         });
 
+        // Greeting text setup
         TextView greetingText = findViewById(R.id.greeting_text);
-        Intent intent = getIntent();
-        String userName = intent.getStringExtra("USER_NAME");
-
+        String userName = getIntent().getStringExtra("USER_NAME");
         if (userName != null && !userName.isEmpty()) {
             greetingText.setText("Good Evening, " + userName);
         }
@@ -40,73 +39,36 @@ public class home_page extends AppCompatActivity {
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
-        // Strike-through Views for active state indicator
-        View strikeThroughHome = findViewById(R.id.strike_home);
-        View strikeThroughTasks = findViewById(R.id.strike_tasks);
-        View strikeThroughGoals = findViewById(R.id.strike_goals);
-        View strikeThroughProfile = findViewById(R.id.strike_profile);
+        // Strike-through Views
+        View strikeHome = findViewById(R.id.strike_home);
+        View strikeTasks = findViewById(R.id.strike_tasks);
+        View strikeGoals = findViewById(R.id.strike_goals);
+        View strikeProfile = findViewById(R.id.strike_profile);
 
-        // Set initial state for Home (assuming the user is on the Home page)
-        strikeThroughHome.setVisibility(View.VISIBLE);  // Home is active
-        strikeThroughTasks.setVisibility(View.INVISIBLE);  // Inactive
-        strikeThroughGoals.setVisibility(View.INVISIBLE);  // Inactive
-        strikeThroughProfile.setVisibility(View.INVISIBLE);  // Inactive
+        // Set current page as active (Home)
+        strikeHome.setVisibility(View.VISIBLE);
+        strikeTasks.setVisibility(View.INVISIBLE);
+        strikeGoals.setVisibility(View.INVISIBLE);
+        strikeProfile.setVisibility(View.INVISIBLE);
 
-        // Set click listeners for navigation
-        navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Keep Home active (strike-through stays for Home)
-                strikeThroughHome.setVisibility(View.VISIBLE);
-                strikeThroughTasks.setVisibility(View.INVISIBLE);
-                strikeThroughGoals.setVisibility(View.INVISIBLE);
-                strikeThroughProfile.setVisibility(View.INVISIBLE);
-            }
+        // Navigation click listeners
+        navHome.setOnClickListener(v -> {
+            // Already on home page – do nothing
         });
 
-        navTasks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the Task page and update active state
-                Intent taskIntent = new Intent(home_page.this, task_page.class);
-                startActivity(taskIntent);
-                overridePendingTransition(0, 0); // Optional: To disable the transition animation
-
-                strikeThroughHome.setVisibility(View.INVISIBLE);  // Inactive
-                strikeThroughTasks.setVisibility(View.VISIBLE);  // Tasks active
-                strikeThroughGoals.setVisibility(View.INVISIBLE);  // Inactive
-                strikeThroughProfile.setVisibility(View.INVISIBLE);  // Inactive
-            }
+        navTasks.setOnClickListener(v -> {
+            startActivity(new Intent(home_page.this, task_page.class));
+            overridePendingTransition(0, 0);
         });
 
-        navGoals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the Goals page and update active state
-                Intent goalsIntent = new Intent(home_page.this, goals_page.class);
-                startActivity(goalsIntent);
-                overridePendingTransition(0, 0); // Optional: To disable the transition animation
-
-                strikeThroughHome.setVisibility(View.INVISIBLE);  // Inactive
-                strikeThroughTasks.setVisibility(View.INVISIBLE);  // Inactive
-                strikeThroughGoals.setVisibility(View.VISIBLE);  // Goals active
-                strikeThroughProfile.setVisibility(View.INVISIBLE);  // Inactive
-            }
+        navGoals.setOnClickListener(v -> {
+            startActivity(new Intent(home_page.this, goals_page.class));
+            overridePendingTransition(0, 0);
         });
 
-        navProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the Profile page and update active state
-                Intent profileIntent = new Intent(home_page.this, profile_page.class);
-                startActivity(profileIntent);
-                overridePendingTransition(0, 0); // Optional: To disable the transition animation
-
-                strikeThroughHome.setVisibility(View.INVISIBLE);  // Inactive
-                strikeThroughTasks.setVisibility(View.INVISIBLE);  // Inactive
-                strikeThroughGoals.setVisibility(View.INVISIBLE);  // Inactive
-                strikeThroughProfile.setVisibility(View.VISIBLE);  // Profile active
-            }
+        navProfile.setOnClickListener(v -> {
+            startActivity(new Intent(home_page.this, profile_page.class));
+            overridePendingTransition(0, 0);
         });
     }
 }
