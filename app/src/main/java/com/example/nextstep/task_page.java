@@ -19,6 +19,7 @@ public class task_page extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_task_page);
 
+        // Apply window insets to handle system bars (like status bar and navigation bar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -31,23 +32,28 @@ public class task_page extends AppCompatActivity {
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
+        // Set the active state for the "Tasks" icon (current page)
+        navHome.setImageResource(R.drawable.home_icon); // Inactive state
+        navTasks.setImageResource(R.drawable.checked_active); // Active state (Task page)
+        navGoals.setImageResource(R.drawable.target); // Inactive state
+        navProfile.setImageResource(R.drawable.userrr); // Inactive state
+
         // Home Page Intent
         navHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to Home page and set active state for Home
                 Intent homeIntent = new Intent(task_page.this, home_page.class);
                 startActivity(homeIntent);
-                finish(); // Close this page
+                finish(); // Close the Task page
             }
         });
 
-        // Tasks Page Intent (Reloads the same page)
+        // Tasks Page Intent (Reloads the same page, no action needed)
         navTasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent taskIntent = new Intent(task_page.this, task_page.class);
-                startActivity(taskIntent);
-                finish();
+                // Stay on the current page (Tasks)
             }
         });
 
@@ -55,9 +61,10 @@ public class task_page extends AppCompatActivity {
         navGoals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to Goals page and set active state for Goals
                 Intent goalsIntent = new Intent(task_page.this, goals_page.class);
                 startActivity(goalsIntent);
-                finish();
+                finish(); // Close the Task page
             }
         });
 
@@ -65,9 +72,10 @@ public class task_page extends AppCompatActivity {
         navProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to Profile page and set active state for Profile
                 Intent profileIntent = new Intent(task_page.this, profile_page.class);
                 startActivity(profileIntent);
-                finish();
+                finish(); // Close the Task page
             }
         });
     }
