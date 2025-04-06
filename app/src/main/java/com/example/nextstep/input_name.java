@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class input_name extends AppCompatActivity {
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +28,17 @@ public class input_name extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize UserManager
+        userManager = new UserManager(this);
+        
+        // Check if user is already logged in
+        if (userManager.isLoggedIn()) {
+            navigateToHomePage();
+            return;
+        }
+
         EditText etName = findViewById(R.id.et_name);
         Button btnConfirm = findViewById(R.id.btn_confirm);
-
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,15 +46,19 @@ public class input_name extends AppCompatActivity {
                 String userName = etName.getText().toString().trim();
 
                 if (!userName.isEmpty()) {
-
-                    Intent intent = new Intent(input_name.this, home_page.class);
-                    intent.putExtra("USER_NAME", userName);
-                    startActivity(intent);
-                    finish();
+                    // Save username in SharedPreferences
+                    userManager.saveUserName(userName);
+                    navigateToHomePage();
                 } else {
                     Toast.makeText(input_name.this, "Please enter your name", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+    
+    private void navigateToHomePage() {
+        Intent intent = new Intent(input_name.this, home_page.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class home_page extends AppCompatActivity {
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,12 @@ public class home_page extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize UserManager
+        userManager = new UserManager(this);
 
         TextView greetingText = findViewById(R.id.greeting_text);
-        String userName = getIntent().getStringExtra("USER_NAME");
-        if (userName != null && !userName.isEmpty()) {
+        String userName = userManager.getUserName();
+        if (!userName.isEmpty()) {
             greetingText.setText("Good Evening, " + userName);
         }
 
@@ -38,18 +41,15 @@ public class home_page extends AppCompatActivity {
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
 
-
         View strikeHome = findViewById(R.id.strike_home);
         View strikeTasks = findViewById(R.id.strike_tasks);
         View strikeGoals = findViewById(R.id.strike_goals);
         View strikeProfile = findViewById(R.id.strike_profile);
 
-
         strikeHome.setVisibility(View.VISIBLE);
         strikeTasks.setVisibility(View.INVISIBLE);
         strikeGoals.setVisibility(View.INVISIBLE);
         strikeProfile.setVisibility(View.INVISIBLE);
-
 
         navHome.setOnClickListener(v -> {
 

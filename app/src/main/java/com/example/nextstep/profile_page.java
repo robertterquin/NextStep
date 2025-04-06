@@ -3,7 +3,9 @@ package com.example.nextstep;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class profile_page extends AppCompatActivity {
+    private UserManager userManager;
+    private TextView tvUsername, tvSelectedCareer;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,24 +30,38 @@ public class profile_page extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize UserManager
+        userManager = new UserManager(this);
+        
+        // Initialize views
+        tvUsername = findViewById(R.id.tvUsername);
+        tvSelectedCareer = findViewById(R.id.tvSelectedCareer);
+        btnLogout = findViewById(R.id.btnLogout);
+        
+        // Display user information
+        displayUserInfo();
+        
+        // Setup logout button
+        btnLogout.setOnClickListener(v -> {
+            userManager.logout();
+            navigateToInputName();
+        });
 
+        // Bottom navigation setup
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navTasks = findViewById(R.id.nav_tasks);
         ImageView navGoals = findViewById(R.id.nav_goals);
         ImageView navProfile = findViewById(R.id.nav_profile);
-
 
         View strikeHome = findViewById(R.id.strike_home);
         View strikeTasks = findViewById(R.id.strike_tasks);
         View strikeGoals = findViewById(R.id.strike_goals);
         View strikeProfile = findViewById(R.id.strike_profile);
 
-
         strikeHome.setVisibility(View.INVISIBLE);
         strikeTasks.setVisibility(View.INVISIBLE);
         strikeGoals.setVisibility(View.INVISIBLE);
         strikeProfile.setVisibility(View.VISIBLE);
-
 
         navHome.setOnClickListener(v -> {
             Intent homeIntent = new Intent(profile_page.this, home_page.class);
@@ -61,9 +80,20 @@ public class profile_page extends AppCompatActivity {
             startActivity(goalsIntent);
             overridePendingTransition(0, 0);
         });
-
-        navProfile.setOnClickListener(v -> {
-
-        });
+    }
+    
+    private void displayUserInfo() {
+        String username = userManager.getUserName();
+        String selectedCareer = userManager.getSelectedCareer();
+        
+        tvUsername.setText(username);
+        tvSelectedCareer.setText("Selected Career Path: " + selectedCareer);
+    }
+    
+    private void navigateToInputName() {
+        Intent intent = new Intent(profile_page.this, input_name.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

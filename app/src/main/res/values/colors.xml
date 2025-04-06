@@ -11,6 +11,6 @@
     <color name="gray">#808080</color>
     <color name="light_gray">#E0E0E0</color>
     <color name="dark_blue">#003366</color> <!-- Dark blue color -->
-
-
+    <color name="selected_card">#D9EAF7</color> <!-- Light blue for selected cards -->
+    <color name="red">#FF0000</color> <!-- Red color for logout button -->
 </resources>
