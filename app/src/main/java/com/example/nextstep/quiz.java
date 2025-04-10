@@ -62,7 +62,16 @@ public class quiz extends AppCompatActivity {
                     return true;
 
                 case MotionEvent.ACTION_MOVE:
-                    questionCard.setTranslationX(event.getRawX() - dX);
+                    float translationX = event.getRawX() - dX;
+                    questionCard.setTranslationX(translationX);
+                    
+                    // Add rotation effect during the swipe
+                    // Rotate proportionally to the distance moved (max 45 degrees)
+                    float rotationFactor = 45f * (translationX / (float)SWIPE_THRESHOLD);
+                    // Limit rotation to +/- 45 degrees
+                    rotationFactor = Math.max(-45f, Math.min(45f, rotationFactor));
+                    questionCard.setRotation(rotationFactor);
+                    
                     return true;
 
                 case MotionEvent.ACTION_UP:
@@ -115,8 +124,11 @@ public class quiz extends AppCompatActivity {
         } else if (translationX < -SWIPE_THRESHOLD) {
             animateCardSwipe(false); // Swipe left (Dislike)
         } else {
-
-            questionCard.animate().translationX(0).setDuration(200).start();
+            questionCard.animate()
+                .translationX(0)
+                .rotation(0)
+                .setDuration(200)
+                .start();
         }
     }
 
@@ -125,22 +137,37 @@ public class quiz extends AppCompatActivity {
         Questions currentQuestion = questionList.get(currentQuestionIndex);
         userResponses.saveResponse(currentQuestion.getQuestionNumber(), isLike);
         
-        ObjectAnimator animator = ObjectAnimator.ofFloat(questionCard, "translationX", endX);
-        animator.setDuration(300); 
-        animator.addListener(new Animator.AnimatorListener() {
+        // Create a translation animation
+        ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(questionCard, "translationX", endX);
+        translationAnimator.setDuration(400); // slightly longer duration for more visible effect
+        
+        // Add rotation animation (tumbling effect)
+        float rotationAngle = isLike ? 45f : -45f; // rotate 45 degrees in the direction of the swipe
+        ObjectAnimator rotationAnimator = ObjectAnimator.ofFloat(questionCard, "rotation", 0f, rotationAngle);
+        rotationAnimator.setDuration(400);
+        
+        // Start both animations together
+        rotationAnimator.start();
+        translationAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                questionCard.setTranslationX(0); 
-                questionCard.setAlpha(0f); 
+                // Reset both translation and rotation
+                questionCard.setTranslationX(0);
+                questionCard.setRotation(0); 
+                questionCard.setAlpha(0f);
                 nextQuestion();
-                questionCard.animate().alpha(1f).setDuration(300); 
+                // Fade in the next question
+                questionCard.animate()
+                    .alpha(1f)
+                    .setDuration(300)
+                    .start();
             }
-    
+
             @Override public void onAnimationStart(Animator animation) {}
             @Override public void onAnimationCancel(Animator animation) {}
             @Override public void onAnimationRepeat(Animator animation) {}
         });
-        animator.start();
+        translationAnimator.start();
     }
 
     private void nextQuestion() {

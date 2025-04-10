@@ -3,6 +3,7 @@ package com.example.nextstep;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,11 @@ public class home_page extends AppCompatActivity {
     private CareerTipManager careerTipManager;
     
     private TextView tvTasksCompleted, tvGoalsToday, tvOverallProgress, tvCareerTip, tvViewMoreTips;
+    private TextView tvLearnMoreDescription;
+    private Button btnLearnMore;
     private ProgressBar overallProgressBar;
     private CardView cardAssessment, cardAddGoal, cardTodoList;
+    private String selectedCareer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class home_page extends AppCompatActivity {
 
         // Initialize managers
         userManager = new UserManager(this);
-        String selectedCareer = userManager.getSelectedCareer();
+        selectedCareer = userManager.getSelectedCareer();
         if (selectedCareer.isEmpty()) {
             selectedCareer = UserResponses.DEVELOPER; // Default if none selected
         }
@@ -54,6 +58,8 @@ public class home_page extends AppCompatActivity {
         overallProgressBar = findViewById(R.id.overallProgressBar);
         tvCareerTip = findViewById(R.id.tvCareerTip);
         tvViewMoreTips = findViewById(R.id.tvViewMoreTips);
+        tvLearnMoreDescription = findViewById(R.id.tvLearnMoreDescription);
+        btnLearnMore = findViewById(R.id.btnLearnMore);
         
         // Initialize card views
         cardAssessment = findViewById(R.id.cardAssessment);
@@ -75,6 +81,9 @@ public class home_page extends AppCompatActivity {
 
         // Update statistics
         updateStatistics();
+        
+        // Setup learn more section
+        setupLearnMoreSection();
 
         // Setup bottom navigation using the helper
         NavigationHelper.setupBottomNavigation(this, NavigationHelper.NavigationTab.HOME);
@@ -100,6 +109,51 @@ public class home_page extends AppCompatActivity {
             // Show more tips (could be implemented as a dialog or new activity)
             Toast.makeText(this, "More career tips coming soon!", Toast.LENGTH_SHORT).show();
         });
+        
+        btnLearnMore.setOnClickListener(v -> {
+            openCareerResourceUrl();
+        });
+    }
+    
+    private void setupLearnMoreSection() {
+        // Customize the learn more description based on selected career
+        String customMessage = "Explore resources to help you advance as a " + selectedCareer;
+        tvLearnMoreDescription.setText(customMessage);
+    }
+    
+    private void openCareerResourceUrl() {
+        String url = "";
+        
+        // Select the appropriate URL based on career
+        switch (selectedCareer) {
+            case UserResponses.DEVELOPER:
+                url = getString(R.string.url_developer);
+                break;
+            case UserResponses.NETWORK_SPECIALIST:
+                url = getString(R.string.url_network_specialist);
+                break;
+            case UserResponses.IT_SUPPORT:
+                url = getString(R.string.url_it_support);
+                break;
+            case UserResponses.DATA_ANALYTICS:
+                url = getString(R.string.url_data_analytics);
+                break;
+            case UserResponses.UI_DESIGNER:
+                url = getString(R.string.url_ui_designer);
+                break;
+            case UserResponses.PROJECT_MANAGER:
+                url = getString(R.string.url_project_manager);
+                break;
+            case UserResponses.CYBER_SECURITY:
+                url = getString(R.string.url_cyber_security);
+                break;
+            default:
+                url = getString(R.string.url_developer); // Default to developer resources
+        }
+        
+        // Open the URL in a browser
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+        startActivity(browserIntent);
     }
     
     private void updateCareerTip(String career) {
@@ -156,5 +210,12 @@ public class home_page extends AppCompatActivity {
         super.onResume();
         // Refresh statistics when returning to the screen
         updateStatistics();
+        
+        // Update career info in case it changed
+        String updatedCareer = userManager.getSelectedCareer();
+        if (!updatedCareer.equals(selectedCareer)) {
+            selectedCareer = updatedCareer;
+            setupLearnMoreSection();
+        }
     }
 }

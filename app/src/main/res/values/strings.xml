@@ -7,4 +7,12 @@
     <string name="description2">Get insights into in-demand skills and certifications to boost your career.</string>
     <string name="description3">Set your goals, track progress, and move forward in your IT journey.</string>
 
+    <!-- Career Resource URLs -->
+    <string name="url_developer">https://www.wearedevelopers.com/en/magazine/156/software-development-blogs</string>
+    <string name="url_network_specialist">https://feedly.com/i/top/networking-blogs</string>
+    <string name="url_it_support">https://www.capella.edu/blog/information-technology/6-blogs-for-it-professionals/</string>
+    <string name="url_data_analytics">https://medium.com/@parvezshah.shaik/12-must-read-data-analytics-blogs-6ed62a4a0caf</string>
+    <string name="url_ui_designer">https://www.uxdesigninstitute.com/blog/</string>
+    <string name="url_project_manager">https://www.projectmanager.com/blog</string>
+    <string name="url_cyber_security">https://www.cm-alliance.com/cybersecurity-blog</string>
 </resources>

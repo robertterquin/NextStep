@@ -351,6 +351,52 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Learn More Section -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Learn More"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfpro_bold"
+                android:textColor="@color/dark_blue"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvLearnMoreDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Explore resources to help you advance in your career path"
+                android:textSize="14sp"
+                android:fontFamily="@font/sfpro_reg"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/btnLearnMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VISIT RESOURCES"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:fontFamily="@font/sfpro_bold"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
