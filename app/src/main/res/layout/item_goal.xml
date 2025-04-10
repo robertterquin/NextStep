@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGoalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal Title"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/sfpro_bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvGoalDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal description goes here"
+                android:textSize="14sp"
+                android:fontFamily="@font/sfpro_reg"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvGoalDates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start: Jan 1, 2024 • End: Jan 31, 2024"
+                android:textSize="12sp"
+                android:fontFamily="@font/sfpro_reg"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/cbGoalCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#8A2BE2" />
+
+            <ImageButton
+                android:id="@+id/btnDeleteGoal"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/red"
+                android:contentDescription="Delete goal" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

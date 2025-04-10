@@ -59,9 +59,17 @@ public class result_page extends AppCompatActivity {
             public void onClick(View v) {
                 if (!selectedCareer.isEmpty()) {
                     userManager.saveSelectedCareer(selectedCareer);
-                    Intent intent = new Intent(result_page.this, input_name.class);
-                    startActivity(intent);
-                    finish();
+                    
+                    // Check if user is already logged in
+                    if (userManager.isLoggedIn()) {
+                        // User already has an account, go directly to home page
+                        navigateToHomePage();
+                    } else {
+                        // User needs to enter their name
+                        Intent intent = new Intent(result_page.this, input_name.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     Toast.makeText(result_page.this, "Please select a career path", Toast.LENGTH_SHORT).show();
                 }
@@ -177,5 +185,13 @@ public class result_page extends AppCompatActivity {
                 selectCareer(UserResponses.CYBER_SECURITY, cvCyberSecurity);
                 break;
         }
+    }
+    
+    // Add method to navigate to home page
+    private void navigateToHomePage() {
+        Intent intent = new Intent(result_page.this, home_page.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

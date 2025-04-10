@@ -12,10 +12,23 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Initialize UserManager
+        userManager = new UserManager(this);
+        
+        // Check if user is already logged in and has selected a career
+        if (userManager.isLoggedIn() && !userManager.getSelectedCareer().isEmpty()) {
+            // User is logged in and has a career selected, go directly to home page
+            navigateToHomePage();
+            return;
+        }
+        
+        // Continue with normal onboarding flow if not logged in
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -32,5 +45,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    
+    private void navigateToHomePage() {
+        Intent intent = new Intent(MainActivity.this, home_page.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

@@ -19,6 +19,16 @@ public class input_name extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Initialize UserManager
+        userManager = new UserManager(this);
+        
+        // Check if user has already completed full onboarding
+        if (userManager.hasCompletedOnboarding()) {
+            navigateToHomePage();
+            return;
+        }
+        
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_input_name);
 
@@ -27,15 +37,6 @@ public class input_name extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Initialize UserManager
-        userManager = new UserManager(this);
-        
-        // Check if user is already logged in
-        if (userManager.isLoggedIn()) {
-            navigateToHomePage();
-            return;
-        }
 
         EditText etName = findViewById(R.id.et_name);
         Button btnConfirm = findViewById(R.id.btn_confirm);
@@ -58,6 +59,7 @@ public class input_name extends AppCompatActivity {
     
     private void navigateToHomePage() {
         Intent intent = new Intent(input_name.this, home_page.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }

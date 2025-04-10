@@ -8,6 +8,7 @@ public class UserManager {
     private static final String KEY_USER_NAME = "user_name";
     private static final String KEY_SELECTED_CAREER = "selected_career";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
+    private static final String KEY_HAS_COMPLETED_QUIZ = "has_completed_quiz";
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
@@ -29,6 +30,7 @@ public class UserManager {
 
     public void saveSelectedCareer(String career) {
         editor.putString(KEY_SELECTED_CAREER, career);
+        editor.putBoolean(KEY_HAS_COMPLETED_QUIZ, true);
         editor.apply();
     }
 
@@ -39,9 +41,18 @@ public class UserManager {
     public boolean isLoggedIn() {
         return preferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
+    
+    public boolean hasCompletedQuiz() {
+        return preferences.getBoolean(KEY_HAS_COMPLETED_QUIZ, false);
+    }
 
     public void logout() {
         editor.clear();
         editor.apply();
+    }
+    
+    // Check if user has completed full onboarding process
+    public boolean hasCompletedOnboarding() {
+        return isLoggedIn() && !getSelectedCareer().isEmpty();
     }
 }

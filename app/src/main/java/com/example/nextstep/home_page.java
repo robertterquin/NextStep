@@ -3,8 +3,10 @@ package com.example.nextstep;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import androidx.cardview.widget.CardView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class home_page extends AppCompatActivity {
     private UserManager userManager;
+    private TaskManager taskManager;
+    private GoalManager goalManager;
+    private CareerTipManager careerTipManager;
+    
+    private TextView tvTasksCompleted, tvGoalsToday, tvOverallProgress, tvCareerTip, tvViewMoreTips;
+    private ProgressBar overallProgressBar;
+    private CardView cardAssessment, cardAddGoal, cardTodoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,47 +36,125 @@ public class home_page extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize UserManager
+        // Initialize managers
         userManager = new UserManager(this);
+        String selectedCareer = userManager.getSelectedCareer();
+        if (selectedCareer.isEmpty()) {
+            selectedCareer = UserResponses.DEVELOPER; // Default if none selected
+        }
+        taskManager = new TaskManager(this, selectedCareer);
+        goalManager = new GoalManager(this);
+        careerTipManager = new CareerTipManager(this);
 
+        // Initialize views
         TextView greetingText = findViewById(R.id.greeting_text);
+        tvTasksCompleted = findViewById(R.id.tvTasksCompleted);
+        tvGoalsToday = findViewById(R.id.tvGoalsToday);
+        tvOverallProgress = findViewById(R.id.tvOverallProgress);
+        overallProgressBar = findViewById(R.id.overallProgressBar);
+        tvCareerTip = findViewById(R.id.tvCareerTip);
+        tvViewMoreTips = findViewById(R.id.tvViewMoreTips);
+        
+        // Initialize card views
+        cardAssessment = findViewById(R.id.cardAssessment);
+        cardAddGoal = findViewById(R.id.cardAddGoal);
+        cardTodoList = findViewById(R.id.cardTodoList);
+
+        // Set greeting text
         String userName = userManager.getUserName();
         if (!userName.isEmpty()) {
-            greetingText.setText("Good Evening, " + userName);
+            String greeting = getGreeting() + ", " + userName;
+            greetingText.setText(greeting);
         }
 
-        ImageView navHome = findViewById(R.id.nav_home);
-        ImageView navTasks = findViewById(R.id.nav_tasks);
-        ImageView navGoals = findViewById(R.id.nav_goals);
-        ImageView navProfile = findViewById(R.id.nav_profile);
+        // Set career tip
+        updateCareerTip(selectedCareer);
+        
+        // Set up click listeners
+        setupClickListeners();
 
-        View strikeHome = findViewById(R.id.strike_home);
-        View strikeTasks = findViewById(R.id.strike_tasks);
-        View strikeGoals = findViewById(R.id.strike_goals);
-        View strikeProfile = findViewById(R.id.strike_profile);
+        // Update statistics
+        updateStatistics();
 
-        strikeHome.setVisibility(View.VISIBLE);
-        strikeTasks.setVisibility(View.INVISIBLE);
-        strikeGoals.setVisibility(View.INVISIBLE);
-        strikeProfile.setVisibility(View.INVISIBLE);
-
-        navHome.setOnClickListener(v -> {
-
+        // Setup bottom navigation using the helper
+        NavigationHelper.setupBottomNavigation(this, NavigationHelper.NavigationTab.HOME);
+    }
+    
+    private void setupClickListeners() {
+        cardAssessment.setOnClickListener(v -> {
+            Intent intent = new Intent(home_page.this, quiz.class);
+            startActivity(intent);
         });
 
-        navTasks.setOnClickListener(v -> {
-            startActivity(new Intent(home_page.this, task_page.class));
-            overridePendingTransition(0, 0);
+        cardAddGoal.setOnClickListener(v -> {
+            Intent intent = new Intent(home_page.this, goals_page.class);
+            startActivity(intent);
         });
-
-        navGoals.setOnClickListener(v -> {
-            startActivity(new Intent(home_page.this, goals_page.class));
-            overridePendingTransition(0, 0);
+        
+        cardTodoList.setOnClickListener(v -> {
+            Intent intent = new Intent(home_page.this, task_page.class);
+            startActivity(intent);
         });
-
-        navProfile.setOnClickListener(v -> {
-            startActivity(new Intent(home_page.this, profile_page.class));
-            overridePendingTransition(0, 0);
+        
+        tvViewMoreTips.setOnClickListener(v -> {
+            // Show more tips (could be implemented as a dialog or new activity)
+            Toast.makeText(this, "More career tips coming soon!", Toast.LENGTH_SHORT).show();
         });
+    }
+    
+    private void updateCareerTip(String career) {
+        String tip = careerTipManager.getRandomTipForCareer(career);
+        tvCareerTip.setText(tip);
+    }
+    
+    private String getGreeting() {
+        int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
+        if (hour < 12) {
+            return "Good Morning";
+        } else if (hour < 18) {
+            return "Good Afternoon";
+        } else {
+            return "Good Evening";
+        }
+    }
+    
+    private void updateStatistics() {
+        // Update Tasks Completed
+        int completedTasks = taskManager.getCompletedTaskCount();
+        int totalTasks = taskManager.getTotalTaskCount();
+        tvTasksCompleted.setText(completedTasks + "/" + totalTasks);
+        
+        // Update Goals Due Today
+        int todayGoals = goalManager.getActiveTodayGoalsCount();
+        tvGoalsToday.setText(String.valueOf(todayGoals));
+        
+        // Calculate overall progress (tasks + goals)
+        int taskProgress = totalTasks > 0 ? (completedTasks * 100) / totalTasks : 0;
+        int completedGoals = goalManager.getCompletedGoals().size();
+        int totalGoals = goalManager.getAllGoals().size();
+        int goalProgress = totalGoals > 0 ? (completedGoals * 100) / totalGoals : 0;
+        
+        // Combined progress (weighted average)
+        int overallProgress;
+        if (totalTasks > 0 && totalGoals > 0) {
+            overallProgress = (taskProgress + goalProgress) / 2;
+        } else if (totalTasks > 0) {
+            overallProgress = taskProgress;
+        } else if (totalGoals > 0) {
+            overallProgress = goalProgress;
+        } else {
+            overallProgress = 0;
+        }
+        
+        // Update progress bar and text
+        overallProgressBar.setProgress(overallProgress);
+        tvOverallProgress.setText(overallProgress + "% Complete");
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh statistics when returning to the screen
+        updateStatistics();
     }
 }
