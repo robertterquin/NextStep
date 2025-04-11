@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_input_add"
             app:fabSize="mini"
+            android:background="@color/light_blue"
             app:tint="@color/white"
             android:contentDescription="Add new goal"/>
     </LinearLayout>
