@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,8 +64,12 @@ public class goals_page extends AppCompatActivity implements GoalAdapter.OnGoalL
         // Set up RecyclerView
         goalsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         
+        // Add animations to the RecyclerView
+        goalsRecyclerView.setHasFixedSize(true);
+        setupRecyclerViewAnimation();
+        
         // Add spacing decoration
-        goalsRecyclerView.addItemDecoration(new SpacingItemDecoration(8));
+        goalsRecyclerView.addItemDecoration(new SpacingItemDecoration(12));
 
         // Load active goals by default
         loadActiveGoals();
@@ -86,6 +92,12 @@ public class goals_page extends AppCompatActivity implements GoalAdapter.OnGoalL
 
         // Setup bottom navigation using the helper
         NavigationHelper.setupBottomNavigation(this, NavigationHelper.NavigationTab.GOALS);
+    }
+    
+    // Add this method to implement the animation
+    private void setupRecyclerViewAnimation() {
+        goalsRecyclerView.setLayoutAnimation(new LayoutAnimationController(
+                AnimationUtils.loadAnimation(this, R.anim.item_animation_fall_down), 0.15f));
     }
 
     private void updateTabSelection() {
@@ -123,8 +135,12 @@ public class goals_page extends AppCompatActivity implements GoalAdapter.OnGoalL
             if (goalAdapter == null) {
                 goalAdapter = new GoalAdapter(this, goals, goalManager, this);
                 goalsRecyclerView.setAdapter(goalAdapter);
+                // Run animation when first loading the adapter
+                goalsRecyclerView.scheduleLayoutAnimation();
             } else {
                 goalAdapter.updateGoals(goals);
+                // Optionally run the animation again when updating
+                goalsRecyclerView.scheduleLayoutAnimation();
             }
         }
     }

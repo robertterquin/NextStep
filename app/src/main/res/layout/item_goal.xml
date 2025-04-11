@@ -12,7 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="@color/white">
+        android:background="@drawable/cardview_stroke">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_blue"
+            android:layout_marginEnd="12dp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -25,11 +31,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Goal Title"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/sfpro_bold"
                 android:textColor="@color/black"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:id="@+id/tvGoalDescription"
@@ -39,7 +45,7 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/sfpro_reg"
                 android:textColor="@color/black"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="12dp" />
 
             <TextView
                 android:id="@+id/tvGoalDates"
@@ -48,7 +54,10 @@
                 android:text="Start: Jan 1, 2024 • End: Jan 31, 2024"
                 android:textSize="12sp"
                 android:fontFamily="@font/sfpro_reg"
-                android:textColor="@color/gray" />
+                android:textColor="@color/gray"
+                android:background="@drawable/date_display_background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,7 +70,7 @@
                 android:id="@+id/cbGoalCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="#5BC3EC" />
+                android:buttonTint="@color/light_blue" />
 
             <ImageButton
                 android:id="@+id/btnDeleteGoal"

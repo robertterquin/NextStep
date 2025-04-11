@@ -157,7 +157,20 @@ public class home_page extends AppCompatActivity {
     }
     
     private void updateCareerTip(String career) {
+        // Get either a random tip or one of the motivational quotes
         String tip = careerTipManager.getRandomTipForCareer(career);
+        
+        // Make the text style match the content
+        if (tip.startsWith("💻") || tip.startsWith("🌐") || tip.startsWith("🖥") || 
+            tip.startsWith("📊") || tip.startsWith("🎨") || tip.startsWith("📅") || 
+            tip.startsWith("🔐")) {
+            // This is a quote, style it differently (optional)
+            tvCareerTip.setTextSize(15); // Slightly larger
+        } else {
+            // This is a regular tip
+            tvCareerTip.setTextSize(14); // Regular size
+        }
+        
         tvCareerTip.setText(tip);
     }
     

@@ -76,9 +76,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingVertical="8dp"
         android:clipToPadding="false"
-        android:paddingBottom="8dp" />
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/light_blue"
+        android:scrollbarSize="4dp"
+        android:fadeScrollbars="false"
+        android:overScrollMode="ifContentScrolls" />
 
     <TextView
         android:id="@+id/tvNoGoals"
