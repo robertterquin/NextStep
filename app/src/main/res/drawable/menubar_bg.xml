@@ -12,6 +12,6 @@
     <size android:height="60dp"/>
 
     <!-- Outline or Stroke (Optional) -->
-    <stroke android:width="2dp" android:color="#DDDDDD"/>
+    <stroke android:width="2dp" android:color="#BDBDBD"/>
 
 </shape>
