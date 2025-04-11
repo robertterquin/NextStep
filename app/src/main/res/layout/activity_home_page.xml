@@ -227,13 +227,13 @@
                             android:layout_height="32dp"
                             android:src="@drawable/lightbulb"
                             android:layout_marginBottom="8dp"
-                            android:tint="@color/dark_blue" />
+                            app:tint="@color/dark_blue" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Reassessment"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:fontFamily="@font/sfpro_bold"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -271,13 +271,13 @@
                             android:layout_height="32dp"
                             android:src="@drawable/icon_goals"
                             android:layout_marginBottom="8dp"
-                            android:tint="@color/dark_blue" />
+                            app:tint="@color/dark_blue" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="New Goal"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:fontFamily="@font/sfpro_bold"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -315,13 +315,13 @@
                             android:layout_height="32dp"
                             android:src="@drawable/icon_task"
                             android:layout_marginBottom="8dp"
-                            android:tint="@color/dark_blue" />
+                            app:tint="@color/dark_blue" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tasks"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:fontFamily="@font/sfpro_bold"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -329,8 +329,6 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
-
-        <!-- Career Tips Section -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -456,7 +454,7 @@
                     android:layout_width="40dp"
                     android:layout_height="2dp"
                     android:layout_marginTop="4dp"
-                    android:background="#87CEFA"
+                    android:background="#5BC3EC"
                     android:visibility="gone" />
             </LinearLayout>
 
@@ -479,7 +477,7 @@
                     android:layout_width="40dp"
                     android:layout_height="2dp"
                     android:layout_marginTop="4dp"
-                    android:background="#87CEFA"
+                    android:background="#5BC3EC"
                     android:visibility="gone" />
             </LinearLayout>
 
@@ -502,7 +500,7 @@
                     android:layout_width="40dp"
                     android:layout_height="2dp"
                     android:layout_marginTop="4dp"
-                    android:background="#87CEFA"
+                    android:background="#5BC3EC"
                     android:visibility="gone" />
             </LinearLayout>
 
@@ -525,7 +523,7 @@
                     android:layout_width="40dp"
                     android:layout_height="2dp"
                     android:layout_marginTop="4dp"
-                    android:background="#87CEFA"
+                    android:background="#5BC3EC"
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
