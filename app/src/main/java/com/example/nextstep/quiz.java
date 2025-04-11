@@ -137,26 +137,26 @@ public class quiz extends AppCompatActivity {
         Questions currentQuestion = questionList.get(currentQuestionIndex);
         userResponses.saveResponse(currentQuestion.getQuestionNumber(), isLike);
         
-        // Create a translation animation
+
         ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(questionCard, "translationX", endX);
-        translationAnimator.setDuration(400); // slightly longer duration for more visible effect
+        translationAnimator.setDuration(400);
         
-        // Add rotation animation (tumbling effect)
-        float rotationAngle = isLike ? 45f : -45f; // rotate 45 degrees in the direction of the swipe
+
+        float rotationAngle = isLike ? 45f : -45f;
         ObjectAnimator rotationAnimator = ObjectAnimator.ofFloat(questionCard, "rotation", 0f, rotationAngle);
         rotationAnimator.setDuration(400);
         
-        // Start both animations together
+
         rotationAnimator.start();
         translationAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Reset both translation and rotation
+
                 questionCard.setTranslationX(0);
                 questionCard.setRotation(0); 
                 questionCard.setAlpha(0f);
                 nextQuestion();
-                // Fade in the next question
+
                 questionCard.animate()
                     .alpha(1f)
                     .setDuration(300)

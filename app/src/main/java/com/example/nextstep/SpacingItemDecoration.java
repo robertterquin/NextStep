@@ -5,16 +5,11 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * ItemDecoration for adding space between RecyclerView items
- */
+
 public class SpacingItemDecoration extends RecyclerView.ItemDecoration {
     private final int spacing;
 
-    /**
-     * Constructor
-     * @param spacingDp spacing in dp
-     */
+
     public SpacingItemDecoration(int spacingDp) {
         this.spacing = spacingDp;
     }

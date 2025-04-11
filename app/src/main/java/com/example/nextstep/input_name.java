@@ -19,11 +19,10 @@ public class input_name extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // Initialize UserManager
+
         userManager = new UserManager(this);
         
-        // Check if user has already completed full onboarding
+
         if (userManager.hasCompletedOnboarding()) {
             navigateToHomePage();
             return;
@@ -47,7 +46,7 @@ public class input_name extends AppCompatActivity {
                 String userName = etName.getText().toString().trim();
 
                 if (!userName.isEmpty()) {
-                    // Save username in SharedPreferences
+
                     userManager.saveUserName(userName);
                     navigateToHomePage();
                 } else {

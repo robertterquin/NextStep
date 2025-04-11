@@ -61,31 +61,31 @@ public class home_page extends AppCompatActivity {
         tvLearnMoreDescription = findViewById(R.id.tvLearnMoreDescription);
         btnLearnMore = findViewById(R.id.btnLearnMore);
         
-        // Initialize card views
+
         cardAssessment = findViewById(R.id.cardAssessment);
         cardAddGoal = findViewById(R.id.cardAddGoal);
         cardTodoList = findViewById(R.id.cardTodoList);
 
-        // Set greeting text
+
         String userName = userManager.getUserName();
         if (!userName.isEmpty()) {
             String greeting = getGreeting() + ", " + userName;
             greetingText.setText(greeting);
         }
 
-        // Set career tip
+
         updateCareerTip(selectedCareer);
         
-        // Set up click listeners
+
         setupClickListeners();
 
-        // Update statistics
+
         updateStatistics();
         
-        // Setup learn more section
+
         setupLearnMoreSection();
 
-        // Setup bottom navigation using the helper
+
         NavigationHelper.setupBottomNavigation(this, NavigationHelper.NavigationTab.HOME);
     }
     
@@ -124,7 +124,7 @@ public class home_page extends AppCompatActivity {
     private void openCareerResourceUrl() {
         String url = "";
         
-        // Select the appropriate URL based on career
+
         switch (selectedCareer) {
             case UserResponses.DEVELOPER:
                 url = getString(R.string.url_developer);
@@ -151,7 +151,7 @@ public class home_page extends AppCompatActivity {
                 url = getString(R.string.url_developer); // Default to developer resources
         }
         
-        // Open the URL in a browser
+
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
         startActivity(browserIntent);
     }
@@ -173,22 +173,22 @@ public class home_page extends AppCompatActivity {
     }
     
     private void updateStatistics() {
-        // Update Tasks Completed
+
         int completedTasks = taskManager.getCompletedTaskCount();
         int totalTasks = taskManager.getTotalTaskCount();
         tvTasksCompleted.setText(completedTasks + "/" + totalTasks);
         
-        // Update Goals Due Today
+
         int todayGoals = goalManager.getActiveTodayGoalsCount();
         tvGoalsToday.setText(String.valueOf(todayGoals));
         
-        // Calculate overall progress (tasks + goals)
+
         int taskProgress = totalTasks > 0 ? (completedTasks * 100) / totalTasks : 0;
         int completedGoals = goalManager.getCompletedGoals().size();
         int totalGoals = goalManager.getAllGoals().size();
         int goalProgress = totalGoals > 0 ? (completedGoals * 100) / totalGoals : 0;
         
-        // Combined progress (weighted average)
+
         int overallProgress;
         if (totalTasks > 0 && totalGoals > 0) {
             overallProgress = (taskProgress + goalProgress) / 2;
@@ -200,7 +200,7 @@ public class home_page extends AppCompatActivity {
             overallProgress = 0;
         }
         
-        // Update progress bar and text
+
         overallProgressBar.setProgress(overallProgress);
         tvOverallProgress.setText(overallProgress + "% Complete");
     }
@@ -208,10 +208,10 @@ public class home_page extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh statistics when returning to the screen
+
         updateStatistics();
         
-        // Update career info in case it changed
+
         String updatedCareer = userManager.getSelectedCareer();
         if (!updatedCareer.equals(selectedCareer)) {
             selectedCareer = updatedCareer;

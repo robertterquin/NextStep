@@ -85,7 +85,7 @@
                     android:layout_height="15dp"
                     android:layout_weight="1"
                     android:progress="0"
-                    android:progressTint="#8A2BE2"
+                    android:progressTint="#5BC3EC"
                     android:background="@drawable/progress_bg" />
 
                 <TextView

@@ -61,7 +61,7 @@
                 android:backgroundTint="#D3D3D3"
                 android:max="100"
                 android:progress="30"
-                android:progressTint="#8A2BE2" />
+                android:progressTint="#5BC3EC" />
 
             <TextView
                 android:id="@+id/tvQuestionNumber"
@@ -70,7 +70,7 @@
                 android:fontFamily="@font/sfpro_reg"
                 android:layout_marginTop="0dp"
                 android:text="Question 1 of 10"
-                android:textColor="#8A2BE2"
+                android:textColor="#5BC3EC"
                 android:textSize="14sp" />
 
             <TextView

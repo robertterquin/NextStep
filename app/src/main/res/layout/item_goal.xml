@@ -61,16 +61,17 @@
                 android:id="@+id/cbGoalCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="#8A2BE2" />
+                android:buttonTint="#5BC3EC" />
 
             <ImageButton
                 android:id="@+id/btnDeleteGoal"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="15dp"
                 android:src="@android:drawable/ic_menu_delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/red"
-                android:contentDescription="Delete goal" />
+                android:contentDescription="Delete goal"
+                app:tint="@color/red" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

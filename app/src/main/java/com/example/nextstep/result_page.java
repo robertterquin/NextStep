@@ -40,32 +40,27 @@ public class result_page extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize UserManager
         userManager = new UserManager(this);
         userResponses = new UserResponses(this);
 
-        // Initialize views
         initializeViews();
-        
-        // Setup clickable cards
+
         setupCareerCardListeners();
-        
-        // Display results
+
         displayResults();
-        
-        // Set continue button click listener
+
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!selectedCareer.isEmpty()) {
                     userManager.saveSelectedCareer(selectedCareer);
                     
-                    // Check if user is already logged in
+
                     if (userManager.isLoggedIn()) {
-                        // User already has an account, go directly to home page
+
                         navigateToHomePage();
                     } else {
-                        // User needs to enter their name
+
                         Intent intent = new Intent(result_page.this, input_name.class);
                         startActivity(intent);
                         finish();
@@ -86,8 +81,7 @@ public class result_page extends AppCompatActivity {
         tvProjectManager = findViewById(R.id.tvProjectManager);
         tvCyberSecurity = findViewById(R.id.tvCyberSecurity);
         tvRecommendedCareer = findViewById(R.id.tvRecommendedCareer);
-        
-        // Get CardView parent containers
+
         cvDeveloper = (CardView) tvDeveloper.getParent();
         cvNetworkSpecialist = (CardView) tvNetworkSpecialist.getParent();
         cvITSupport = (CardView) tvITSupport.getParent();
@@ -95,8 +89,7 @@ public class result_page extends AppCompatActivity {
         cvUIDesigner = (CardView) tvUIDesigner.getParent();
         cvProjectManager = (CardView) tvProjectManager.getParent();
         cvCyberSecurity = (CardView) tvCyberSecurity.getParent();
-        
-        // Add continue button
+
         btnContinue = findViewById(R.id.btnContinue);
     }
     
@@ -111,13 +104,11 @@ public class result_page extends AppCompatActivity {
     }
     
     private void selectCareer(String career, CardView selectedCard) {
-        // Reset all cards
         resetAllCardBackgrounds();
         
-        // Highlight selected card
+
         selectedCard.setCardBackgroundColor(getResources().getColor(R.color.light_blue));
-        
-        // Save selected career
+
         selectedCareer = career;
         Toast.makeText(this, career + " selected", Toast.LENGTH_SHORT).show();
     }
@@ -136,7 +127,6 @@ public class result_page extends AppCompatActivity {
         Map<String, Integer> percentages = userResponses.calculatePercentages();
         String recommendedCareer = userResponses.getRecommendedCareer();
 
-        // Set text for each career with percentage
         tvDeveloper.setText(String.format("Developer\n%d%%",
                 percentages.get(UserResponses.DEVELOPER)));
 
@@ -158,10 +148,10 @@ public class result_page extends AppCompatActivity {
         tvCyberSecurity.setText(String.format("Cyber Security\n%d%%",
                 percentages.get(UserResponses.CYBER_SECURITY)));
 
-        // Display the recommended career
+
         tvRecommendedCareer.setText(recommendedCareer);
         
-        // Auto-select the recommended career
+
         switch (recommendedCareer) {
             case UserResponses.DEVELOPER:
                 selectCareer(UserResponses.DEVELOPER, cvDeveloper);
@@ -187,7 +177,7 @@ public class result_page extends AppCompatActivity {
         }
     }
     
-    // Add method to navigate to home page
+
     private void navigateToHomePage() {
         Intent intent = new Intent(result_page.this, home_page.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

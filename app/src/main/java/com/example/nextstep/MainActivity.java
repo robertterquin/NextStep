@@ -18,17 +18,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // Initialize UserManager
+
         userManager = new UserManager(this);
         
-        // Check if user is already logged in and has selected a career
+
         if (userManager.isLoggedIn() && !userManager.getSelectedCareer().isEmpty()) {
-            // User is logged in and has a career selected, go directly to home page
+
             navigateToHomePage();
             return;
         }
         
-        // Continue with normal onboarding flow if not logged in
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

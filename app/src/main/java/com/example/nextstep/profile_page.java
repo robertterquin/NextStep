@@ -28,24 +28,24 @@ public class profile_page extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize UserManager
+
         userManager = new UserManager(this);
         
-        // Initialize views
+
         tvUsername = findViewById(R.id.tvUsername);
         tvSelectedCareer = findViewById(R.id.tvSelectedCareer);
         btnLogout = findViewById(R.id.btnLogout);
         
-        // Display user information
+
         displayUserInfo();
         
-        // Setup logout button
+
         btnLogout.setOnClickListener(v -> {
             userManager.logout();
             navigateToInputName();
         });
 
-        // Setup bottom navigation using the helper
+
         NavigationHelper.setupBottomNavigation(this, NavigationHelper.NavigationTab.PROFILE);
     }
     
