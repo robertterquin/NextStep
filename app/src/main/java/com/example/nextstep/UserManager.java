@@ -9,6 +9,7 @@ public class UserManager {
     private static final String KEY_SELECTED_CAREER = "selected_career";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
     private static final String KEY_HAS_COMPLETED_QUIZ = "has_completed_quiz";
+    private static final String KEY_PROFILE_PICTURE = "profile_picture";  // Added key for profile picture
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
@@ -41,16 +42,25 @@ public class UserManager {
     public boolean isLoggedIn() {
         return preferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
-    
+
     public boolean hasCompletedQuiz() {
         return preferences.getBoolean(KEY_HAS_COMPLETED_QUIZ, false);
+    }
+
+    public void saveProfilePicture(String encodedImage) {
+        editor.putString(KEY_PROFILE_PICTURE, encodedImage);
+        editor.apply();
+    }
+
+    public String getProfilePicture() {
+        return preferences.getString(KEY_PROFILE_PICTURE, null);  // Return null if no image is saved
     }
 
     public void logout() {
         editor.clear();
         editor.apply();
     }
-    
+
     // Check if user has completed full onboarding process
     public boolean hasCompletedOnboarding() {
         return isLoggedIn() && !getSelectedCareer().isEmpty();
