@@ -84,10 +84,10 @@ public class task_page extends AppCompatActivity implements TaskAdapter.OnTaskCo
         int completedCount = taskManager.getCompletedTaskCount();
         int totalCount = taskManager.getTotalTaskCount();
         
-        // Update progress text
+
         progressText.setText(completedCount + "/" + totalCount);
         
-        // Update progress bar
+
         int progressPercentage = (totalCount > 0) ? (completedCount * 100) / totalCount : 0;
         taskProgressBar.setProgress(progressPercentage);
     }
@@ -95,8 +95,7 @@ public class task_page extends AppCompatActivity implements TaskAdapter.OnTaskCo
     @Override
     protected void onResume() {
         super.onResume();
-        
-        // Refresh task list in case career selection changed
+
         String selectedCareer = userManager.getSelectedCareer();
         if (selectedCareer.isEmpty()) {
             selectedCareer = UserResponses.DEVELOPER;
@@ -110,8 +109,7 @@ public class task_page extends AppCompatActivity implements TaskAdapter.OnTaskCo
             taskAdapter = new TaskAdapter(tasks, taskManager, this);
             taskRecyclerView.setAdapter(taskAdapter);
         }
-        
-        // Always update progress display on resume
+
         updateProgressDisplay();
     }
 }

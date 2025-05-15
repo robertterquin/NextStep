@@ -1,7 +1,9 @@
 package com.example.nextstep;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,15 +11,18 @@ import java.util.List;
 import java.util.Map;
 
 public class TaskManager {
-    private static final String PREFS_NAME = "TaskPreferences";
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
-    public String careerPath; // Changed to public for access in task_page
+    private static final String DATABASE_NAME = "TaskDB";
+    private static final int DATABASE_VERSION = 1;
+    private static final String TABLE_NAME = "tasks";
+
+    private SQLiteDatabase db;
+    private DBHelper dbHelper;
+    public String careerPath;
     private static Map<String, List<String>> careerTasks;
 
     static {
         careerTasks = new HashMap<>();
-        
+
         // Developer tasks
         List<String> developerTasks = new ArrayList<>();
         developerTasks.add("Learn the basics of a programming language (Start with Python or JavaScript).");
@@ -36,7 +41,7 @@ public class TaskManager {
         developerTasks.add("Try a coding challenge website (HackerRank, LeetCode – easy level).");
         developerTasks.add("Look for internships or freelance projects you can join.");
         careerTasks.put(UserResponses.DEVELOPER, developerTasks);
-        
+
         // Network Specialist tasks
         List<String> networkTasks = new ArrayList<>();
         networkTasks.add("Understand what a network is and how the internet works.");
@@ -55,7 +60,7 @@ public class TaskManager {
         networkTasks.add("Study beginner CCNA topics (free courses available).");
         networkTasks.add("Look for entry-level IT/networking internships.");
         careerTasks.put(UserResponses.NETWORK_SPECIALIST, networkTasks);
-        
+
         // IT Support tasks
         List<String> itSupportTasks = new ArrayList<>();
         itSupportTasks.add("Learn about computer parts and how they work together.");
@@ -74,7 +79,7 @@ public class TaskManager {
         itSupportTasks.add("Study for certifications like CompTIA A+ (use free content).");
         itSupportTasks.add("Apply for help desk or tech support internships.");
         careerTasks.put(UserResponses.IT_SUPPORT, itSupportTasks);
-        
+
         // Data & Analytics tasks
         List<String> dataAnalyticsTasks = new ArrayList<>();
         dataAnalyticsTasks.add("Learn the basics of Microsoft Excel or Google Sheets.");
@@ -93,7 +98,7 @@ public class TaskManager {
         dataAnalyticsTasks.add("Explore intro to machine learning (watch fun demos).");
         dataAnalyticsTasks.add("Apply for entry-level data analyst opportunities.");
         careerTasks.put(UserResponses.DATA_ANALYTICS, dataAnalyticsTasks);
-        
+
         // UI Designer tasks
         List<String> uiDesignerTasks = new ArrayList<>();
         uiDesignerTasks.add("Learn what UI (User Interface) and UX (User Experience) mean.");
@@ -112,7 +117,7 @@ public class TaskManager {
         uiDesignerTasks.add("Learn basic HTML & CSS (helps bring designs to life).");
         uiDesignerTasks.add("Apply for internships in design or freelance UI work.");
         careerTasks.put(UserResponses.UI_DESIGNER, uiDesignerTasks);
-        
+
         // Project Manager tasks
         List<String> projectManagerTasks = new ArrayList<>();
         projectManagerTasks.add("Understand what a project manager does (watch a short intro video).");
@@ -131,7 +136,7 @@ public class TaskManager {
         projectManagerTasks.add("Join project management forums or student clubs to practice teamwork.");
         projectManagerTasks.add("Explore beginner certifications like Google Project Management or Scrum Fundamentals.");
         careerTasks.put(UserResponses.PROJECT_MANAGER, projectManagerTasks);
-        
+
         // Cyber Security tasks
         List<String> cyberSecurityTasks = new ArrayList<>();
         cyberSecurityTasks.add("Understand what Cybersecurity is (watch an intro video on how hacking works).");
@@ -152,63 +157,112 @@ public class TaskManager {
         careerTasks.put(UserResponses.CYBER_SECURITY, cyberSecurityTasks);
     }
 
+
     public TaskManager(Context context, String careerPath) {
         this.careerPath = careerPath;
-        preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        editor = preferences.edit();
+        dbHelper = new DBHelper(context);
+        db = dbHelper.getWritableDatabase();
+        initializeTasks();
+    }
+
+    private void initializeTasks() {
+        List<String> descriptions = careerTasks.get(careerPath);
+        if (descriptions != null) {
+            for (int i = 0; i < descriptions.size(); i++) {
+                int id = getTaskId(i);
+                if (!taskExists(id)) {
+                    db.execSQL("INSERT INTO " + TABLE_NAME + " (id, career, description, completed) VALUES (?, ?, ?, 0)",
+                            new Object[]{id, careerPath, descriptions.get(i)});
+                }
+            }
+        }
+    }
+
+    private boolean taskExists(int taskId) {
+        Cursor cursor = db.rawQuery("SELECT 1 FROM " + TABLE_NAME + " WHERE id = ?", new String[]{String.valueOf(taskId)});
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
     }
 
     public List<Task> getTasksForCareer() {
         List<Task> tasks = new ArrayList<>();
-        List<String> taskDescriptions = careerTasks.get(careerPath);
-        
-        if (taskDescriptions != null) {
-            for (int i = 0; i < taskDescriptions.size(); i++) {
-                int taskId = getTaskId(i);
-                boolean completed = isTaskCompleted(taskId);
-                tasks.add(new Task(taskId, taskDescriptions.get(i), completed));
-            }
+        Cursor cursor = db.rawQuery("SELECT id, description, completed FROM " + TABLE_NAME + " WHERE career = ?", new String[]{careerPath});
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String description = cursor.getString(1);
+            boolean completed = cursor.getInt(2) == 1;
+            tasks.add(new Task(id, description, completed));
         }
-        
+
+        cursor.close();
         return tasks;
     }
 
     private int getTaskId(int position) {
-        // Generate a unique ID for each task based on career and position
         return careerPath.hashCode() + position;
     }
 
     public void setTaskCompleted(int taskId, boolean completed) {
-        String key = "task_" + taskId;
-        editor.putBoolean(key, completed);
-        editor.apply();
+        db.execSQL("UPDATE " + TABLE_NAME + " SET completed = ? WHERE id = ?",
+                new Object[]{completed ? 1 : 0, taskId});
     }
 
     public boolean isTaskCompleted(int taskId) {
-        String key = "task_" + taskId;
-        return preferences.getBoolean(key, false);
+        Cursor cursor = db.rawQuery("SELECT completed FROM " + TABLE_NAME + " WHERE id = ?",
+                new String[]{String.valueOf(taskId)});
+        boolean result = false;
+        if (cursor.moveToFirst()) {
+            result = cursor.getInt(0) == 1;
+        }
+        cursor.close();
+        return result;
     }
 
     public int getCompletedTaskCount() {
-        List<Task> tasks = getTasksForCareer();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE career = ? AND completed = 1", new String[]{careerPath});
         int count = 0;
-        for (Task task : tasks) {
-            if (task.isCompleted()) {
-                count++;
-            }
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
         }
+        cursor.close();
         return count;
     }
 
     public int getTotalTaskCount() {
-        List<String> taskDescriptions = careerTasks.get(careerPath);
-        return taskDescriptions != null ? taskDescriptions.size() : 0;
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE career = ?", new String[]{careerPath});
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
     }
 
     public void resetAllTasks() {
-        List<Task> tasks = getTasksForCareer();
-        for (Task task : tasks) {
-            setTaskCompleted(task.getId(), false);
+        db.execSQL("UPDATE " + TABLE_NAME + " SET completed = 0 WHERE career = ?", new Object[]{careerPath});
+    }
+
+    private static class DBHelper extends SQLiteOpenHelper {
+
+        public DBHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                    "id INTEGER PRIMARY KEY," +
+                    "career TEXT," +
+                    "description TEXT," +
+                    "completed INTEGER)");
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+            onCreate(db);
         }
     }
 }

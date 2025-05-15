@@ -9,12 +9,14 @@ public class UserManager {
     private static final String KEY_SELECTED_CAREER = "selected_career";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
     private static final String KEY_HAS_COMPLETED_QUIZ = "has_completed_quiz";
-    private static final String KEY_PROFILE_PICTURE = "profile_picture";  // Added key for profile picture
+    private static final String KEY_PROFILE_PICTURE = "profile_picture";
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private Context context;
 
     public UserManager(Context context) {
+        this.context = context;
         preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         editor = preferences.edit();
     }
@@ -53,15 +55,18 @@ public class UserManager {
     }
 
     public String getProfilePicture() {
-        return preferences.getString(KEY_PROFILE_PICTURE, null);  // Return null if no image is saved
+        return preferences.getString(KEY_PROFILE_PICTURE, null);
     }
 
     public void logout() {
         editor.clear();
         editor.apply();
+
+        // Clear all user data in database
+        UserDatabaseHelper dbHelper = new UserDatabaseHelper(context);
+        dbHelper.clearUserData();
     }
 
-    // Check if user has completed full onboarding process
     public boolean hasCompletedOnboarding() {
         return isLoggedIn() && !getSelectedCareer().isEmpty();
     }

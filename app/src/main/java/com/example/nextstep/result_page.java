@@ -184,4 +184,13 @@ public class result_page extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (userResponses != null) {
+            userResponses.close();
+        }
+    }
+
+
 }

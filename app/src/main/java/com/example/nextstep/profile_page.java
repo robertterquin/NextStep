@@ -24,19 +24,15 @@ public class profile_page extends AppCompatActivity {
     private Button btnLogout;
     private ImageView profilePicture;
 
-    // ActivityResultLauncher to open the gallery
     private final ActivityResultLauncher<Intent> galleryResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         try {
-                            // Get the URI of the selected image
                             InputStream inputStream = getContentResolver().openInputStream(result.getData().getData());
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            // Store the image as Base64 string in SharedPreferences
                             storeProfileImage(bitmap);
-                            // Set the profile image to the ImageView
                             profilePicture.setImageBitmap(bitmap);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -57,15 +53,16 @@ public class profile_page extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
         profilePicture = findViewById(R.id.profile_picture);
 
-        // Display user info
         displayUserInfo();
 
-        // Set onClickListener for the profile image (instead of the button)
         profilePicture.setOnClickListener(v -> openGallery());
 
         btnLogout.setOnClickListener(v -> {
-            userManager.logout();
-            navigateToInputName();
+            userManager.logout();  // Clear SharedPreferences & DB data
+            Intent intent = new Intent(profile_page.this, input_name.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
         NavigationHelper.setupBottomNavigation(this, NavigationHelper.NavigationTab.PROFILE);
@@ -78,39 +75,33 @@ public class profile_page extends AppCompatActivity {
     }
 
     private void storeProfileImage(Bitmap bitmap) {
-        // Convert the Bitmap to a byte array
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
 
-        // Convert the byte array to Base64 string
         String encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-        // Save to SharedPreferences
         userManager.saveProfilePicture(encodedImage);
+
+        // Also update DB profile picture
+        UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+        dbHelper.updateProfilePic(encodedImage);
     }
 
     private void displayUserInfo() {
         String username = userManager.getUserName();
-        String selectedCareer = userManager.getSelectedCareer();
-
-        // Set username and career path
-        tvUsername.setText(username);
-        tvSelectedCareer.setText("Selected Career Path: " + selectedCareer);
-
-        // Load and display the profile image if it exists in SharedPreferences
+        String career = userManager.getSelectedCareer();
         String encodedImage = userManager.getProfilePicture();
-        if (encodedImage != null) {
-            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-            Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            profilePicture.setImageBitmap(decodedBitmap);
-        }
-    }
 
-    private void navigateToInputName() {
-        Intent intent = new Intent(profile_page.this, input_name.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+        tvUsername.setText(username != null && !username.isEmpty() ? username : "No username set");
+        tvSelectedCareer.setText(career != null && !career.isEmpty() ? career : "No career selected");
+
+        if (encodedImage != null && !encodedImage.isEmpty()) {
+            byte[] decodedBytes = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            profilePicture.setImageBitmap(bitmap);
+        } else {
+            profilePicture.setImageResource(R.drawable.empty_profile);
+            // Replace with your app’s default profile image resource ID
+        }
     }
 }

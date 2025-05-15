@@ -20,6 +20,8 @@ public class input_name extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         userManager = new UserManager(this);
         
 
