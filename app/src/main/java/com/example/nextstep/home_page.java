@@ -155,25 +155,23 @@ public class home_page extends AppCompatActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
         startActivity(browserIntent);
     }
-    
+
     private void updateCareerTip(String career) {
-        // Get either a random tip or one of the motivational quotes
         String tip = careerTipManager.getRandomTipForCareer(career);
-        
-        // Make the text style match the content
-        if (tip.startsWith("💻") || tip.startsWith("🌐") || tip.startsWith("🖥") || 
-            tip.startsWith("📊") || tip.startsWith("🎨") || tip.startsWith("📅") || 
-            tip.startsWith("🔐")) {
-            // This is a quote, style it differently (optional)
-            tvCareerTip.setTextSize(15); // Slightly larger
+
+        // Optionally style differently for quotes with emojis (your existing logic)
+        if (tip.startsWith("💻") || tip.startsWith("🌐") || tip.startsWith("🖥") ||
+                tip.startsWith("📊") || tip.startsWith("🎨") || tip.startsWith("📅") ||
+                tip.startsWith("🔐")) {
+            tvCareerTip.setTextSize(15);
         } else {
-            // This is a regular tip
-            tvCareerTip.setTextSize(14); // Regular size
+            tvCareerTip.setTextSize(14);
         }
-        
+
         tvCareerTip.setText(tip);
     }
-    
+
+
     private String getGreeting() {
         int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
         if (hour < 12) {
@@ -217,13 +215,12 @@ public class home_page extends AppCompatActivity {
         overallProgressBar.setProgress(overallProgress);
         tvOverallProgress.setText(overallProgress + "% Complete");
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
 
         updateStatistics();
-        
 
         String updatedCareer = userManager.getSelectedCareer();
         if (!updatedCareer.equals(selectedCareer)) {
